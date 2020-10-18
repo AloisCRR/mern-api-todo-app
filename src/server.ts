@@ -1,9 +1,7 @@
-import express from "express";
+import App from "./app";
+import { connect } from "./content/config/db";
 
-export async function main(): Promise<void> {
-  const app = express();
+connect();
+const app = new App();
 
-  app.listen(3000, () => {
-    console.log("Server running in port 3000");
-  });
-}
+app.start();

@@ -1,5 +1,6 @@
 import express, { Application } from "express";
 import helmet from "helmet";
+import cors from "cors";
 
 import UserApi from "./content/user/routes/user.routes";
 
@@ -24,10 +25,17 @@ class App {
   }
 
   private settings(): void {
-    this.app.set("port", process.env.PORT || 3000);
+    this.app.set("port", process.env.PORT || 4000);
   }
 
   private middlewares(): void {
+    this.app.use(
+      cors({
+        credentials: true,
+        exposedHeaders: ["set-cookie"],
+        origin: ["localhost:3000"],
+      })
+    );
     this.app.use(helmet());
     this.app.use(express.json());
   }

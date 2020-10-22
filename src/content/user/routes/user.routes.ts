@@ -4,8 +4,8 @@ import { UserController } from "../user.index";
 const router = Router();
 
 router.post("/signup", UserController.CreateUser);
-router.get("/:id", UserController.GetUser);
-router.patch("/:id", UserController.UpdateUser);
-router.delete("/:id", UserController.DeleteUser);
+router.post("/login", UserController.LogInUser);
+router.post("/logout", UserController.authenticate, UserController.LogOutUser);
+router.get("/me", UserController.authenticate, UserController.GetUser);
 
 export default router;

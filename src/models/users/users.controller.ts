@@ -1,5 +1,5 @@
 import { checkAuth, sendAuthResponse } from "@authentication/auth.controller";
-import { userSerializer } from "@common/middlewares/serialize.middleware";
+import { serializer } from "@common/middlewares/serialize.middleware";
 import { NextFunction, Request, Response, Router } from "express";
 import { StatusCodes } from "http-status-codes";
 import { IUser } from "./interfaces/user.interface";
@@ -36,8 +36,8 @@ function handleGetMe(req: Request, res: Response) {
 
 const router = Router();
 
-router.post("/signup", userSerializer(userBody, "body"), handleSignUp);
-router.post("/login", userSerializer(userLogIn, "body"), handleLogIn);
+router.post("/signup", serializer(userBody, "body"), handleSignUp);
+router.post("/login", serializer(userLogIn, "body"), handleLogIn);
 router.post("/logout", handleLogOut);
 router.get("/me", checkAuth, handleGetMe);
 

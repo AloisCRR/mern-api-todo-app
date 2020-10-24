@@ -71,7 +71,7 @@ user.statics.emailExists = async function (
   email: IUser["email"],
   login = false
 ) {
-  const user = await this.findOne({ email }).select("+password");
+  const user = await this.findOne({ email });
 
   if (user && !login) {
     throw new Error("Mail already in use");

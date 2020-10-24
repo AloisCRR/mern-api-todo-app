@@ -2,6 +2,8 @@ import bcrypt from "bcryptjs";
 import { HookNextFunction, model, Schema } from "mongoose";
 import { IUser, IUserDocument } from "../interfaces/user.interface";
 import { IUserModel } from "@models/users/interfaces/user.interface";
+import { HttpException } from "@common/exceptions/http-exception.filter";
+import { StatusCodes } from "http-status-codes";
 
 export enum EMood {
   happy = "happy",
@@ -58,7 +60,7 @@ const user = new Schema(
   }
 );
 
-user.pre("save", async function (this: IUserDocument, next: HookNextFunction) {
+user.pre<IUserDocument>("save", async function (next: HookNextFunction) {
   if (this.isModified("password")) {
     this.password = await bcrypt.hash(this.password, 8);
   }
@@ -74,11 +76,11 @@ user.statics.emailExists = async function (
   const user = await this.findOne({ email });
 
   if (user && !login) {
-    throw new Error("Mail already in use");
+    throw new HttpException("Mail already in use", StatusCodes.BAD_REQUEST);
   }
 
   if (!user && login) {
-    throw new Error("Invalid credentials");
+    throw new HttpException("Invalid credentials", StatusCodes.BAD_REQUEST);
   }
 
   return user;
@@ -88,7 +90,10 @@ user.statics.userExists = async function (this: IUserModel, _id: string) {
   const user = await this.findOne({ _id });
 
   if (!user) {
-    throw new Error("You aren't authenticated");
+    throw new HttpException(
+      "You aren't authenticated",
+      StatusCodes.UNAUTHORIZED
+    );
   }
 
   return user;
@@ -99,7 +104,7 @@ user.methods.comparePassword = async function (
   userPass: IUserDocument["password"]
 ) {
   if (!(await bcrypt.compare(pass, userPass))) {
-    throw new Error("Invalid credentials");
+    throw new HttpException("Invalid credentials", StatusCodes.BAD_REQUEST);
   }
   return;
 };

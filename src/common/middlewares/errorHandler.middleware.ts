@@ -1,15 +1,13 @@
+import { HttpException } from "@common/exceptions/http-exception.filter";
 import { NextFunction, Request, Response } from "express";
-import { StatusCodes } from "http-status-codes";
-
-// TODO Handle errors in more detailed way
 
 export function errorMiddleware(
-  error: Error,
+  error: HttpException,
   _: Request,
   res: Response,
   __: NextFunction
 ) {
   return res
-    .status(StatusCodes.INTERNAL_SERVER_ERROR)
-    .json({ error: error.message });
+    .status(error.code)
+    .json({ error: error.message, validationErrors: error.validationErrors });
 }

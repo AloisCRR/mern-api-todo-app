@@ -1,5 +1,7 @@
+import { HttpException } from "@common/exceptions/http-exception.filter";
 import { IUser, IUserDocument } from "@models/users/interfaces/user.interface";
 import UserModel from "@models/users/schemas/user.schema";
+import { StatusCodes } from "http-status-codes";
 import jwt from "jsonwebtoken";
 import { IAuthenticationResult } from "./interfaces/auth.interfaces";
 
@@ -17,7 +19,10 @@ export function generateAuthenticationResult(
 
 export async function authenticate(cookie?: string) {
   if (!cookie) {
-    throw new Error("You aren't authenticated");
+    throw new HttpException(
+      "You aren't authenticated",
+      StatusCodes.UNAUTHORIZED
+    );
   }
 
   const { user } = jwt.verify(cookie, process.env.JWT_SECRET as string) as {

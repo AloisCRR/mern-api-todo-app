@@ -1,5 +1,6 @@
 import { errorMiddleware } from "@common/middlewares/errorHandler.middleware";
 import { notFound } from "@common/middlewares/notFound.middleware";
+import { TodoAPI } from "@models/todos/todos.module";
 import { UserAPI } from "@models/users/users.module";
 import { connectToMongoDB } from "@providers/database/mongo/provider.module";
 import cookieParser from "cookie-parser";
@@ -23,6 +24,7 @@ class App {
 
   private routes() {
     this.app.use("/user", UserAPI);
+    this.app.use("/todo", TodoAPI);
     this.app.use(notFound);
     this.app.use(errorMiddleware);
   }

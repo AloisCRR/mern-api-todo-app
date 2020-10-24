@@ -1,5 +1,7 @@
 dependencies:
+  agenda: 3.1.0
   bcryptjs: 2.4.3
+  cookie-parser: 1.4.5
   cors: 2.8.5
   dotenv: 8.2.0
   express: 4.17.1
@@ -7,17 +9,19 @@ dependencies:
   http-status-codes: 2.1.4
   joi: 17.2.1
   jsonwebtoken: 8.5.1
-  mongoose: 5.10.9_mongoose@5.10.9
+  mongoose: 5.10.9
 devDependencies:
   '@types/bcryptjs': 2.4.2
+  '@types/cookie-parser': 1.4.2
   '@types/cors': 2.8.8
   '@types/express': 4.17.8
   '@types/joi': 14.3.4
   '@types/jsonwebtoken': 8.5.0
   '@types/mongoose': 5.7.36
   ts-node-dev: 1.0.0_typescript@4.0.3
+  tsconfig-paths: 3.9.0
   typescript: 4.0.3
-lockfileVersion: 5.1
+lockfileVersion: 5.2
 packages:
   /@hapi/address/4.1.0:
     dependencies:
@@ -67,6 +71,12 @@ packages:
     dev: true
     resolution:
       integrity: sha512-2+FrkXY4zllzTNfJth7jOqEHC+enpLeGslEhpnTAkg21GkRrWV4SsAtqchtT4YS9/nODBU2/ZfsBY2X4J/dX7A==
+  /@types/cookie-parser/1.4.2:
+    dependencies:
+      '@types/express': 4.17.8
+    dev: true
+    resolution:
+      integrity: sha512-uwcY8m6SDQqciHsqcKDGbo10GdasYsPCYkH3hVegj9qAah6pX5HivOnOuI3WYmyQMnOATV39zv/Ybs0bC/6iVg==
   /@types/cors/2.8.8:
     dependencies:
       '@types/express': 4.17.8
@@ -94,6 +104,10 @@ packages:
     dev: true
     resolution:
       integrity: sha512-1TQNDJvIKlgYXGNIABfgFp9y0FziDpuGrd799Q5RcnsDu+krD+eeW/0Fs5PHARvWWFelOhIG2OPCo6KbadBM4A==
+  /@types/json5/0.0.29:
+    dev: true
+    resolution:
+      integrity: sha1-7ihweulOEdK4J7y+UnC86n8+ce4=
   /@types/jsonwebtoken/8.5.0:
     dependencies:
       '@types/node': 14.11.10
@@ -154,6 +168,19 @@ packages:
       node: '>= 0.6'
     resolution:
       integrity: sha512-Il80Qs2WjYlJIBNzNkK6KYqlVMTbZLXgHx2oT0pU/fjRHyEp+PEfEPY0R3WCwAGVOtauxh1hOxNgIf5bv7dQpA==
+  /agenda/3.1.0:
+    dependencies:
+      cron: 1.8.2
+      date.js: 0.3.3
+      debug: 4.1.1
+      human-interval: 1.0.0
+      moment-timezone: 0.5.31
+      mongodb: 3.5.11
+    dev: false
+    engines:
+      node: '>=10.0.0'
+    resolution:
+      integrity: sha512-UtxV/37gkjDYl0H2Lr4hPrBqOhAgtxYeGSYooSd1eyOmXlK1wFkbs77nItOykufFRv6tR6fskWP2RkyBndXYtg==
   /anymatch/3.1.1:
     dependencies:
       normalize-path: 3.0.0
@@ -303,6 +330,15 @@ packages:
       node: '>= 0.6'
     resolution:
       integrity: sha512-hIP3EEPs8tB9AT1L+NUqtwOAps4mk2Zob89MWXMHjHWg9milF/j4osnnQLXBCBFBk/tvIG/tUc9mOUJiPBhPXA==
+  /cookie-parser/1.4.5:
+    dependencies:
+      cookie: 0.4.0
+      cookie-signature: 1.0.6
+    dev: false
+    engines:
+      node: '>= 0.8.0'
+    resolution:
+      integrity: sha512-f13bPUj/gG/5mDr+xLmSxxDsB9DQiTIfhJS/sqjrmfAWiAN+x2O4i/XguTL9yDZ+/IFDanJ+5x7hC4CXT9Tdzw==
   /cookie-signature/1.0.6:
     dev: false
     resolution:
@@ -326,6 +362,12 @@ packages:
       node: '>= 0.10'
     resolution:
       integrity: sha512-KIHbLJqu73RGr/hnbrO9uBeixNGuvSQjul/jdFvS/KFSIH1hWVd1ng7zOHx+YrEfInLG7q4n6GHQ9cDtxv/P6g==
+  /cron/1.8.2:
+    dependencies:
+      moment-timezone: 0.5.31
+    dev: false
+    resolution:
+      integrity: sha512-Gk2c4y6xKEO8FSAUTklqtfSr7oTq0CiPQeLBG5Fl0qoXpZyMcj1SG59YL+hqq04bu6/IuEA7lMkYDAplQNKkyg==
   /currently-unhandled/0.4.1:
     dependencies:
       array-find-index: 1.0.2
@@ -334,6 +376,12 @@ packages:
       node: '>=0.10.0'
     resolution:
       integrity: sha1-mI3zP+qxke95mmE2nddsF635V+o=
+  /date.js/0.3.3:
+    dependencies:
+      debug: 3.1.0
+    dev: false
+    resolution:
+      integrity: sha512-HgigOS3h3k6HnW011nAb43c5xx5rBXk8P2v/WIT9Zv4koIaVXiH2BURguI78VVp+5Qc076T7OR378JViCnZtBw==
   /dateformat/1.0.12:
     dependencies:
       get-stdin: 4.0.1
@@ -354,6 +402,12 @@ packages:
     dev: false
     resolution:
       integrity: sha512-OX8XqP7/1a9cqkxYw2yXss15f26NKWBpDXQd0/uK/KPqdQhxbPa994hnzjcE2VqQpDslf55723cKPUOGSmMY3g==
+  /debug/4.1.1:
+    dependencies:
+      ms: 2.1.2
+    dev: false
+    resolution:
+      integrity: sha512-pYAIzeRo8J6KPEaJ0VWOh5Pzkbw/RetuzehGM7QRRX5he4fPHx2rdKMB256ehJCkX+XRQm16eZLqLNS8RSZXZw==
   /decamelize/1.2.0:
     dev: true
     engines:
@@ -586,6 +640,10 @@ packages:
     dev: false
     resolution:
       integrity: sha512-MZVIsLKGVOVE1KEnldppe6Ij+vmemMuApDfjhVSLzyYP+td0bREEYyAoIw9yFePoBXManCuBqmiNP5FqJS5Xkg==
+  /human-interval/1.0.0:
+    dev: false
+    resolution:
+      integrity: sha512-SWPw3rD6/ocA0JnGePoXp5Zf5eILzsoL5vdWdLwtTuyrElyCpfQb0whIcxMdK/gAKNl2rFDGkPAbwI2KGZCvNA==
   /iconv-lite/0.4.24:
     dependencies:
       safer-buffer: 2.1.2
@@ -678,6 +736,13 @@ packages:
     dev: false
     resolution:
       integrity: sha512-YT3/4Ln+5YRpacdmfEfrrKh50/kkgX3LgBltjqnlMPIYiZ4hxXZuVJcxmsvxsdeHg9soZfE3qXxHC2tMpCCBOA==
+  /json5/1.0.1:
+    dependencies:
+      minimist: 1.2.5
+    dev: true
+    hasBin: true
+    resolution:
+      integrity: sha512-aKS4WQjPenRxiQsC93MNfjx+nbF4PAdYzmd/1JIj8HYzqfbu86beTuNgXDzPknWk0n0uARlyewZo4s++ES36Ow==
   /jsonwebtoken/8.5.1:
     dependencies:
       jws: 3.2.2
@@ -850,6 +915,30 @@ packages:
     hasBin: true
     resolution:
       integrity: sha512-vVqVZQyf3WLx2Shd0qJ9xuvqgAyKPLAiqITEtqW0oIUjzo3PePDd6fW9iFz30ef7Ysp/oiWqbhszeGWW2T6Gzw==
+  /moment-timezone/0.5.31:
+    dependencies:
+      moment: 2.29.1
+    dev: false
+    resolution:
+      integrity: sha512-+GgHNg8xRhMXfEbv81iDtrVeTcWt0kWmTEY1XQK14dICTXnWJnT0dxdlPspwqF3keKMVPXwayEsk1DI0AA/jdA==
+  /moment/2.29.1:
+    dev: false
+    resolution:
+      integrity: sha512-kHmoybcPV8Sqy59DwNDY3Jefr64lK/by/da0ViFcuA4DH0vQg5Q6Ze5VimxkfQNSC+Mls/Kx53s7TjP1RhFEDQ==
+  /mongodb/3.5.11:
+    dependencies:
+      bl: 2.2.1
+      bson: 1.1.5
+      denque: 1.4.1
+      require_optional: 1.0.1
+      safe-buffer: 5.2.1
+    dev: false
+    engines:
+      node: '>=4'
+    optionalDependencies:
+      saslprep: 1.0.3
+    resolution:
+      integrity: sha512-0a9XI0BbgcUEmB+gykqiUGijUkVflR5B46ZWxTshTQB8yrQlByVSq/5968ojY6iXQ+sDojnuKHnpLBInkZq+6Q==
   /mongodb/3.6.2:
     dependencies:
       bl: 2.2.1
@@ -866,13 +955,13 @@ packages:
       integrity: sha512-sSZOb04w3HcnrrXC82NEh/YGCmBuRgR+C1hZgmmv4L6dBz4BkRse6Y8/q/neXer9i95fKUBbFi4KgeceXmbsOA==
   /mongoose-legacy-pluralize/1.0.2_mongoose@5.10.9:
     dependencies:
-      mongoose: 5.10.9_mongoose@5.10.9
+      mongoose: 5.10.9
     dev: false
     peerDependencies:
       mongoose: '*'
     resolution:
       integrity: sha512-Yo/7qQU4/EyIS8YDFSeenIvXxZN+ld7YdV9LqFVQJzTLye8unujAWPZ4NWKfFA+RNjh+wvTWKY9Z3E5XM6ZZiQ==
-  /mongoose/5.10.9_mongoose@5.10.9:
+  /mongoose/5.10.9:
     dependencies:
       bson: 1.1.5
       kareem: 2.3.1
@@ -888,8 +977,6 @@ packages:
     dev: false
     engines:
       node: '>=4.0.0'
-    peerDependencies:
-      mongoose: '*'
     resolution:
       integrity: sha512-7dkr1d6Uyk87hELzoc6B7Zo7kkPTx8rKummk51Y0je2V2Ttsw0KFPwTp1G8JIbBta7Wpw8j15PJi0d33Ode2nw==
   /mpath/0.7.0:
@@ -1378,6 +1465,15 @@ packages:
       typescript: '>=2.7'
     resolution:
       integrity: sha512-/TqB4SnererCDR/vb4S/QvSZvzQMJN8daAslg7MeaiHvD8rDZsSfXmNeNumyZZzMned72Xoq/isQljYSt8Ynfg==
+  /tsconfig-paths/3.9.0:
+    dependencies:
+      '@types/json5': 0.0.29
+      json5: 1.0.1
+      minimist: 1.2.5
+      strip-bom: 3.0.0
+    dev: true
+    resolution:
+      integrity: sha512-dRcuzokWhajtZWkQsDVKbWyY+jgcLC5sqJhg2PSgf4ZkH2aHPvaOY8YWGhmjb68b5qqTfasSsDO9k7RUiEmZAw==
   /tsconfig/7.0.0:
     dependencies:
       '@types/strip-bom': 3.0.0
@@ -1450,12 +1546,15 @@ packages:
       integrity: sha512-Ux4ygGWsu2c7isFWe8Yu1YluJmqVhxqK2cLXNQA5AcC3QfbGNpM7fu0Y8b/z16pXLnFxZYvWhd3fhBY9DLmC6Q==
 specifiers:
   '@types/bcryptjs': ^2.4.2
+  '@types/cookie-parser': ^1.4.2
   '@types/cors': ^2.8.8
   '@types/express': ^4.17.8
   '@types/joi': ^14.3.4
   '@types/jsonwebtoken': ^8.5.0
   '@types/mongoose': ^5.7.36
+  agenda: ^3.1.0
   bcryptjs: ^2.4.3
+  cookie-parser: ^1.4.5
   cors: ^2.8.5
   dotenv: ^8.2.0
   express: ^4.17.1
@@ -1465,4 +1564,5 @@ specifiers:
   jsonwebtoken: ^8.5.1
   mongoose: ^5.10.9
   ts-node-dev: ^1.0.0
+  tsconfig-paths: ^3.9.0
   typescript: ^4.0.3

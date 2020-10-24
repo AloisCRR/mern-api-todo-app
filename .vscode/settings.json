@@ -2,6 +2,7 @@
     "conventionalCommits.scopes": [
         "server",
         "user",
-        "config"
+        "config",
+        "auth"
     ]
 }

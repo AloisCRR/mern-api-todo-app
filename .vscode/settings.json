@@ -3,6 +3,7 @@
         "server",
         "user",
         "config",
-        "auth"
+        "auth",
+        "todo"
     ]
 }

@@ -2,7 +2,7 @@ import Joi from "joi";
 import { EMood } from "../schemas/user.schema";
 
 export const userBody = Joi.object({
-  name: Joi.string().empty().trim().min(2).max(40).required().messages({
+  name: Joi.string().trim().min(2).max(40).required().messages({
     "string.base": "name must be a string",
     "string.empty": "email cannot be empty string",
     "string.min": "name must have at least 2 characters",
@@ -10,7 +10,6 @@ export const userBody = Joi.object({
     "any.required": "name is a required value",
   }),
   email: Joi.string()
-    .empty()
     .trim()
     .regex(new RegExp(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/))
     .required()
@@ -21,14 +20,21 @@ export const userBody = Joi.object({
       "string.pattern.base": "invalid email",
       "any.required": "email is a required value",
     }),
-  password: Joi.string().empty().trim().min(4).required().messages({
+  password: Joi.string().trim().min(4).required().messages({
     "string.base": "password must be a string",
     "string.empty": "password cannot be empty string",
     "string.min": "password must have at least 4 characters",
     "any.required": "password is a required value",
   }),
-  mood: Joi.valid(...Object.values(EMood)),
-  bornDate: Joi.date().iso(),
+  mood: Joi.valid(...Object.values(EMood)).messages({
+    "any.only": "Available values are 'happy', 'angry', 'neutral', 'mixed'",
+  }),
+  bornDate: Joi.date().iso().messages({
+    "date.base": "Incorrect date",
+    "date.format": "Incorrect date format, it should be ISO 8601",
+  }),
+}).messages({
+  "object.unknown": "Any other property isn't allowed",
 });
 
 export const userLogIn = Joi.object({
@@ -50,4 +56,6 @@ export const userLogIn = Joi.object({
     "string.min": "password must have at least 4 characters",
     "any.required": "password is a required value",
   }),
+}).messages({
+  "object.unknown": "Any other property isn't allowed",
 });

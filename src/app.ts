@@ -1,9 +1,10 @@
+import { errorMiddleware } from "@common/middlewares/errorHandler.middleware";
+import { notFound } from "@common/middlewares/notFound.middleware";
+import { UserAPI } from "@models/users/users.module";
+import { connectToMongoDB } from "@providers/database/mongo/provider.module";
+import cookieParser from "cookie-parser";
 import express, { Application } from "express";
 import helmet from "helmet";
-import cors from "cors";
-
-import UserApi from "./content/user/routes/user.routes";
-
 class App {
   app: Application;
 
@@ -15,29 +16,25 @@ class App {
   }
 
   start() {
-    return this.app.listen(this.app.get("port"), () => {
-      console.log(`Server on port ${this.app.get("port")}`);
+    return this.app.listen(process.env.PORT || 4000, () => {
+      console.log(`Server on port ${process.env.PORT}`);
     });
   }
 
-  private routes(): void {
-    this.app.use("/user", UserApi);
+  private routes() {
+    this.app.use("/user", UserAPI);
+    this.app.use(notFound);
+    this.app.use(errorMiddleware);
   }
 
-  private settings(): void {
-    this.app.set("port", process.env.PORT || 4000);
+  private async settings() {
+    await connectToMongoDB();
   }
 
-  private middlewares(): void {
-    this.app.use(
-      cors({
-        credentials: true,
-        exposedHeaders: ["set-cookie"],
-        origin: ["localhost:3000"],
-      })
-    );
+  private middlewares() {
     this.app.use(helmet());
     this.app.use(express.json());
+    this.app.use(cookieParser());
   }
 }
 

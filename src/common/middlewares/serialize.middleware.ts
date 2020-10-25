@@ -16,7 +16,7 @@ export function serializer(
       const errors = result.error.details.reduce((prev, current) => {
         prev[current.path[0]] = current.message;
         return prev;
-      }, {} as { [key: string]: string });
+      }, {} as Record<string, string>);
 
       throw new HttpException(
         "Validation errors",

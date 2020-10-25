@@ -6,10 +6,16 @@ import { HttpException } from "@common/exceptions/http-exception.filter";
 import { StatusCodes } from "http-status-codes";
 
 export enum EMood {
-  happy = "happy",
-  angry = "angry",
+  happy = "positive",
+  angry = "negative",
   neutral = "neutral",
   mixed = "mixed",
+}
+
+export enum ELang {
+  spanish = "es",
+  french = "fr",
+  english = "en",
 }
 
 const user = new Schema(
@@ -37,6 +43,11 @@ const user = new Schema(
       type: String,
       enum: Object.values(EMood),
       default: EMood.neutral,
+    },
+    lang: {
+      type: String,
+      enum: Object.values(ELang),
+      default: ELang.spanish,
     },
     bornDate: {
       type: Date,

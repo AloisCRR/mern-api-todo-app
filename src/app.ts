@@ -1,5 +1,6 @@
 import { errorMiddleware } from "@common/middlewares/errorHandler.middleware";
 import { notFound } from "@common/middlewares/notFound.middleware";
+import envValidate from "@config/environment/env.validate";
 import { TodoAPI } from "@models/todos/todos.module";
 import { UserAPI } from "@models/users/users.module";
 import { connectToMongoDB } from "@providers/database/mongo/provider.module";
@@ -10,6 +11,7 @@ class App {
   app: Application;
 
   constructor() {
+    envValidate();
     this.app = express();
     this.settings();
     this.middlewares();

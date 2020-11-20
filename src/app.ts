@@ -6,6 +6,7 @@ import { UserAPI } from "@models/users/users.module";
 import { connectToMongoDB } from "@providers/database/mongo/provider.module";
 import cookieParser from "cookie-parser";
 import express, { Application } from "express";
+import mongoSanitizer from "express-mongo-sanitize";
 import helmet from "helmet";
 class App {
   app: Application;
@@ -36,6 +37,7 @@ class App {
   }
 
   private middlewares() {
+    this.app.use(mongoSanitizer());
     this.app.use(helmet());
     this.app.use(express.json());
     this.app.use(cookieParser());

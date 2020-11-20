@@ -52,9 +52,6 @@ export default async function analyzeText() {
       textAnalyticsService.detectLanguage(groups),
     ])) as [ISentimentResult[], ILanguageResult[]];
 
-    console.log(SentimentResults);
-    console.log(LanguageResults);
-
     const userUpdates: IUserUpdates = {};
 
     for (let { id, sentiment } of SentimentResults) {
@@ -80,7 +77,7 @@ export default async function analyzeText() {
 
     for (const [id, update] of Object.entries(userUpdates)) {
       bulk.find({ _id: Types.ObjectId(id) }).updateOne({ $set: update });
-      count = count + 1;
+      count++;
       if (count === 500) {
         await bulk.execute();
         count = 0;

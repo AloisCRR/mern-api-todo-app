@@ -6,7 +6,7 @@ export class HttpException extends Error {
 
   constructor(
     message: string = getReasonPhrase(StatusCodes.INTERNAL_SERVER_ERROR),
-    code: StatusCodes = 500,
+    code: StatusCodes = StatusCodes.INTERNAL_SERVER_ERROR,
     validationErrors?: object
   ) {
     super(message);

@@ -10,6 +10,8 @@ export function serializer(
   return (req: Request, _: Response, next: NextFunction) => {
     const result = schema.validate(req[propertyToValidate], {
       abortEarly: false,
+      skipFunctions: true,
+      stripUnknown: true,
     });
 
     if (result.error) {

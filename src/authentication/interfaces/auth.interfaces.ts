@@ -4,6 +4,7 @@ import { Request } from "express";
 export interface IAuthenticationResult {
   user: IUser;
   jwt: string;
+  refreshJwt: string;
 }
 
 export interface IAuthenticatedRequest extends Request {

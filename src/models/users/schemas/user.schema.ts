@@ -1,9 +1,10 @@
 import bcrypt from "bcryptjs";
-import { HookNextFunction, model, Schema } from "mongoose";
+import { Document, HookNextFunction, model, Schema } from "mongoose";
 import { IUser, IUserDocument } from "../interfaces/user.interface";
 import { IUserModel } from "@models/users/interfaces/user.interface";
 import { HttpException } from "@common/exceptions/http-exception.filter";
 import { StatusCodes } from "http-status-codes";
+import { MongooseSchemaDefinition } from "@common/types/mongooseSchema.type";
 
 export enum EMood {
   happy = "positive",
@@ -18,58 +19,58 @@ export enum ELang {
   english = "en",
 }
 
-const user = new Schema(
-  {
-    name: {
-      type: String,
-      required: true,
-      minlength: 2,
-    },
-    email: {
-      type: String,
-      required: true,
-      unique: true,
-      minlength: 5,
-      match: new RegExp(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/),
-      trim: true,
-    },
-    password: {
-      type: String,
-      required: true,
-      minlength: 4,
-      trim: true,
-    },
-    mood: {
-      type: String,
-      enum: Object.values(EMood),
-      default: EMood.neutral,
-    },
-    lang: {
-      type: String,
-      enum: Object.values(ELang),
-      default: ELang.spanish,
-    },
-    bornDate: {
-      type: Date,
+const schemaDefinition: MongooseSchemaDefinition<IUser> = {
+  name: {
+    type: String,
+    required: true,
+    minlength: 2,
+  },
+  email: {
+    type: String,
+    required: true,
+    unique: true,
+    minlength: 5,
+    match: new RegExp(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/),
+    trim: true,
+  },
+  password: {
+    type: String,
+    required: true,
+    minlength: 4,
+    trim: true,
+  },
+  mood: {
+    type: String,
+    enum: Object.values(EMood),
+    default: EMood.neutral,
+  },
+  lang: {
+    type: String,
+    enum: Object.values(ELang),
+    default: ELang.spanish,
+  },
+  bornDate: {
+    type: Date,
+  },
+};
+
+const user = new Schema(schemaDefinition, {
+  id: true,
+  toJSON: {
+    virtuals: true,
+    versionKey: false,
+    transform: (_: IUserDocument, ret: Partial<IUser & Document>) => {
+      delete ret._id;
+      delete ret.password;
+      delete ret.timestamps?.createdAt;
+      delete ret.timestamps?.updatedAt;
     },
   },
-  {
-    id: true,
-    toObject: {
-      virtuals: true,
-      transform: (_: IUserDocument, obj: IUser) => ({
-        ...obj,
-        password: undefined,
-        _id: undefined,
-        __v: undefined,
-      }),
-    },
-    timestamps: {
-      createdAt: true,
-      updatedAt: true,
-    },
-  }
-);
+  timestamps: {
+    createdAt: true,
+    updatedAt: true,
+  },
+});
 
 user.pre<IUserDocument>("save", async function (next: HookNextFunction) {
   if (this.isModified("password")) {
@@ -97,7 +98,7 @@ user.statics.emailExists = async function (
   return user;
 };
 
-user.statics.userExists = async function (this: IUserModel, _id: string) {
+user.statics.userExists = async function (this: IUserModel, _id?: string) {
   const user = await this.findOne({ _id });
 
   if (!user) {

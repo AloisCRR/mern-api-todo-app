@@ -114,8 +114,6 @@ POST /new
 
 ## Tech Stack
 
-## Tech Stack
-
 | Name                                                                                                  | Description                                                                                                                           |
 | ----------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
 | [Express](https://expressjs.com/)                                                                     | Express is a minimal and flexible Node.js web application framework                                                                   |
